@@ -6,8 +6,32 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.get("/teste", (req, res) => {
-    res.send("Funcionou")
+const usuarios = [];
+const tweets = [];
+
+app.post("/sign-up", (req, res) => {
+    const {username, avatar} = req.body;
+    usuarios.push({username, avatar});
+    res.send('OK!');
+})
+
+app.post("/tweeta", (req, res) => {
+    const {username, tweet} = req.body;
+
+    const userExiste = usuarios.find((user) => user.username === username)
+    if(!userExiste) {
+        return res.send('UNAUTHORIZED')
+    }
+    tweets.push({username, tweet})
+    res.send('OK!');
+})
+
+app.post("/tweets", (req, res) => {
+    const tweetscomp = tweets.map((tweet) => {
+        const user = usuarios.find((user) => user.username === tweet.username)
+        return { ...tweet, avatar: user.avatar};
+        res.send(tweetscomp.slice(-10));
+    })
 })
 
 app.listen(5000, () => console.log('App está rodando na porta 5000'));
