@@ -15,7 +15,7 @@ app.post("/sign-up", (req, res) => {
     res.send('OK!');
 })
 
-app.post("/tweeta", (req, res) => {
+app.post("/tweets", (req, res) => {
     const {username, tweet} = req.body;
 
     const userExiste = usuarios.find((user) => user.username === username)
@@ -26,7 +26,7 @@ app.post("/tweeta", (req, res) => {
     res.send('OK!');
 })
 
-app.post("/tweets", (req, res) => {
+app.get("/tweets", (req, res) => {
     const tweetscomp = tweets.map((tweet) => {
         const user = usuarios.find((user) => user.username === tweet.username)
         return { ...tweet, avatar: user.avatar};
