@@ -15,6 +15,8 @@ app.post("/sign-up", (req, res) => {
     res.send('OK!');
 })
 
+
+
 app.post("/tweets", (req, res) => {
     const {username, tweet} = req.body;
 
@@ -26,14 +28,19 @@ app.post("/tweets", (req, res) => {
     res.send('OK!');
 })
 
+
+
 app.get("/tweets", (req, res) => {
     const tweetscomp = tweets.map((tweet) => {
         const user = usuarios.find((user) => user.username === tweet.username)
-        return { ...tweet, avatar: user.avatar};
-        res.send(tweetscomp.slice(-10));
+        return { ...tweet, avatar: user.avatar}
     })
+    res.send(tweetscomp.slice(-10));
 })
 
-app.listen(5000, () => console.log('App está rodando na porta 5000'));
+
+
+const PORT = 5000;
+app.listen(PORT, () => console.log(`App está rodando na porta ${PORT}`));
 
 
